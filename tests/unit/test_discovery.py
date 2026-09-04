@@ -1,5 +1,6 @@
 from satellite_imagery_viewer.models.imagery import (
     ImagerySearchRequest,
+    ImagerySearchResponse,
 )
 from satellite_imagery_viewer.services.discovery import (
     discover_imagery,
@@ -49,5 +50,10 @@ def test_discover_imagery_normalizes_all_search_results(
     results = discover_imagery(search_params)
 
     assert len(results) == 2
+
+    assert all(
+    isinstance(result, ImagerySearchResponse)
+    for result in results
+    )
     assert results[0].id == "item-1"
     assert results[1].id == "item-2"
